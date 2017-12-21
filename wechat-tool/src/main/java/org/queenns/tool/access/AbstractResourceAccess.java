@@ -31,7 +31,7 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
     /**
      * data real dispose
      */
-    protected DisposeTransform disposeTransform;
+    protected DisposeTransform<T> disposeTransform;
 
     /**
      * timeout for connection
@@ -43,6 +43,15 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
      */
     protected Integer WAITING_DATA_TIMEOUT = 10000;
 
+    protected AbstractResourceAccess(String url, MethodType methodType, DisposeTransform<T> disposeTransform) {
+
+        this.url = url;
+
+        this.methodType = methodType;
+
+        this.disposeTransform = disposeTransform;
+
+    }
 
     @Override
     public T access() {
@@ -61,7 +70,7 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
 
             httpClient.executeMethod(httpMethod);
 
-            return (T) disposeTransform.transformDispose();
+            return disposeTransform.disposeTransform(httpMethod);
 
         } catch (IOException e) {
 
@@ -95,12 +104,50 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
 
             default:
 
-                logger.error("http method type not found : " + methodType);
-
-                return new GetMethod(url);
+                throw new NullPointerException("http method type not found : " + methodType);
 
         }
 
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public MethodType getMethodType() {
+        return methodType;
+    }
+
+    public void setMethodType(MethodType methodType) {
+        this.methodType = methodType;
+    }
+
+    public DisposeTransform<T> getDisposeTransform() {
+        return disposeTransform;
+    }
+
+    public void setDisposeTransform(DisposeTransform<T> disposeTransform) {
+        this.disposeTransform = disposeTransform;
+    }
+
+    public Integer getCONNECTION_TIMEOUT() {
+        return CONNECTION_TIMEOUT;
+    }
+
+    public void setCONNECTION_TIMEOUT(Integer CONNECTION_TIMEOUT) {
+        this.CONNECTION_TIMEOUT = CONNECTION_TIMEOUT;
+    }
+
+    public Integer getWAITING_DATA_TIMEOUT() {
+        return WAITING_DATA_TIMEOUT;
+    }
+
+    public void setWAITING_DATA_TIMEOUT(Integer WAITING_DATA_TIMEOUT) {
+        this.WAITING_DATA_TIMEOUT = WAITING_DATA_TIMEOUT;
     }
 
 }

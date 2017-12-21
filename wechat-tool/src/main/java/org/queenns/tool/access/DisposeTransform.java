@@ -1,10 +1,14 @@
 package org.queenns.tool.access;
 
+import org.apache.commons.httpclient.HttpMethod;
+
+import java.io.IOException;
+
 /**
  * Created by lxj on 17-12-19
  */
 public interface DisposeTransform<T> {
 
-    T transformDispose();
+    T disposeTransform(HttpMethod httpMethod) throws IOException;
 
 }

@@ -5,4 +5,10 @@ package org.queenns.tool.access;
  */
 public class GetResourceAccess<T> extends AbstractResourceAccess<T> {
 
+    public GetResourceAccess(String url) {
+
+        super(url, MethodType.GET, new DefaultDisposeTransform<T>());
+
+    }
+
 }
