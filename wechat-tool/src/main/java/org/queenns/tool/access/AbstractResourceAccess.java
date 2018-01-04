@@ -6,44 +6,90 @@ import org.apache.commons.httpclient.SimpleHttpConnectionManager;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
+import org.queenns.tool.exception.AccessException;
+import org.queenns.tool.util.Jackson;
+import org.queenns.tool.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
 
 /**
  * Created by lxj on 17-12-19
  */
 public abstract class AbstractResourceAccess<T> implements Access<T> {
 
-    private static Logger logger = LoggerFactory.getLogger(AbstractResourceAccess.class);
+    final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    /**
+     * result class type
+     */
+    private Class<T> clazz;
 
     /**
      * access the resource url
      */
-    protected String url;
+    private String url;
 
     /**
      * access method type
      */
-    protected MethodType methodType;
+    private MethodType methodType;
 
     /**
      * data real dispose
      */
-    protected DisposeTransform<T> disposeTransform;
+    private DisposeTransform<T> disposeTransform = defaultDisposeTransform();
 
     /**
      * timeout for connection
      */
-    protected Integer CONNECTION_TIMEOUT = 10000;
+    private Integer CONNECTION_TIMEOUT = 10000;
 
     /**
      * timeout for waiting for data
      */
-    protected Integer WAITING_DATA_TIMEOUT = 10000;
+    private Integer WAITING_DATA_TIMEOUT = 10000;
 
-    protected AbstractResourceAccess(String url, MethodType methodType, DisposeTransform<T> disposeTransform) {
+    AbstractResourceAccess(MethodType methodType, Class<T> clazz) {
+
+        this.clazz = clazz;
+
+        this.methodType = methodType;
+
+    }
+
+    AbstractResourceAccess(String url, MethodType methodType, Class<T> clazz) {
+
+        this.url = url;
+
+        this.clazz = clazz;
+
+        this.methodType = methodType;
+
+    }
+
+    AbstractResourceAccess(MethodType methodType, DisposeTransform<T> disposeTransform, Class<T> clazz) {
+
+        this.clazz = clazz;
+
+        this.methodType = methodType;
+
+        this.disposeTransform = disposeTransform;
+
+    }
+
+    /**
+     * 只有当显式地声明具有具体类的泛型类型时，才会从派生类调用这个调用
+     *
+     * @param url              url
+     * @param methodType       methodType
+     * @param disposeTransform disposeTransform
+     */
+    AbstractResourceAccess(String url, MethodType methodType, DisposeTransform<T> disposeTransform) {
+
+        initClazz();
 
         this.url = url;
 
@@ -53,8 +99,42 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
 
     }
 
+    /**
+     * 只有当显式地声明具有具体类的泛型类型时，才会从派生类调用这个调用
+     *
+     * @param url                  url
+     * @param methodType           methodType
+     * @param disposeTransform     disposeTransform
+     * @param CONNECTION_TIMEOUT   CONNECTION_TIMEOUT
+     * @param WAITING_DATA_TIMEOUT WAITING_DATA_TIMEOUT
+     */
+    AbstractResourceAccess(String url, MethodType methodType, DisposeTransform<T> disposeTransform, Integer CONNECTION_TIMEOUT, Integer WAITING_DATA_TIMEOUT) {
+
+        initClazz();
+
+        this.url = url;
+
+        this.methodType = methodType;
+
+        this.disposeTransform = disposeTransform;
+
+        this.CONNECTION_TIMEOUT = CONNECTION_TIMEOUT;
+
+        this.WAITING_DATA_TIMEOUT = WAITING_DATA_TIMEOUT;
+
+    }
+
+    @SuppressWarnings("unchecked")
+    private void initClazz() {
+
+        this.clazz = ((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
+
+    }
+
     @Override
-    public T access() {
+    public T access() throws IOException {
+
+        if (StringUtil.isEmpty(url)) throw new AccessException("access url not found is null");
 
         logger.info("access url : {}", url);
 
@@ -68,21 +148,36 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
 
         try {
 
+            long startTime = System.currentTimeMillis();
+
             httpClient.executeMethod(httpMethod);
 
+            long finishTime = System.currentTimeMillis();
+
+            logger.info("access continued time {} mm", finishTime - startTime);
+
             return disposeTransform.disposeTransform(httpMethod);
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
-
-            return null;
 
         } finally {
 
             httpMethod.releaseConnection();
 
         }
+
+    }
+
+    private DisposeTransform<T> defaultDisposeTransform() {
+
+        return new DisposeTransform<T>() {
+
+            @Override
+            public T disposeTransform(HttpMethod httpMethod) throws IOException {
+
+                return Jackson.parseJsonToObj(httpMethod.getResponseBodyAsString(), getClazz());
+
+            }
+
+        };
 
     }
 
@@ -104,10 +199,18 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
 
             default:
 
-                throw new NullPointerException("http method type not found : " + methodType);
+                throw new AccessException("http method type not found : " + methodType);
 
         }
 
+    }
+
+    public Class<T> getClazz() {
+        return clazz;
+    }
+
+    public void setClazz(Class<T> clazz) {
+        this.clazz = clazz;
     }
 
     public String getUrl() {
