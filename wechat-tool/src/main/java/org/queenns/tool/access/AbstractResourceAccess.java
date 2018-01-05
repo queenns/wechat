@@ -7,7 +7,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.queenns.tool.exception.AccessException;
-import org.queenns.tool.util.Jackson;
+import org.queenns.tool.util.JacksonUtil;
 import org.queenns.tool.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -173,7 +173,7 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
             @Override
             public T disposeTransform(HttpMethod httpMethod) throws IOException {
 
-                return Jackson.parseJsonToObj(httpMethod.getResponseBodyAsString(), getClazz());
+                return JacksonUtil.parseJsonToObj(httpMethod.getResponseBodyAsString(), getClazz());
 
             }
 

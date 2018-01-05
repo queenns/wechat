@@ -1,10 +1,6 @@
 package org.queenns.tool;
 
-import org.apache.commons.httpclient.HttpMethod;
-import org.queenns.tool.access.Access;
-import org.queenns.tool.access.DisposeTransform;
 import org.queenns.tool.access.GetResourceAccess;
-import org.queenns.tool.util.Jackson;
 
 import java.io.IOException;
 import java.util.Map;

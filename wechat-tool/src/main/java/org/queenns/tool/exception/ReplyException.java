@@ -7,9 +7,9 @@ public class ReplyException extends Exception {
 
     static final long serialVersionUID = -1722561246691552664L;
 
-    public ReplyException(Integer code, String error) {
+    public ReplyException(Integer code, String msg) {
 
-        super("code[" + code + "]error[" + error + "]");
+        super("code[" + code + "]error[" + msg + "]");
 
     }
 

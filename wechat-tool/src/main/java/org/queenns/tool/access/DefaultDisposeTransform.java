@@ -1,7 +1,7 @@
 package org.queenns.tool.access;
 
 import org.apache.commons.httpclient.HttpMethod;
-import org.queenns.tool.util.Jackson;
+import org.queenns.tool.util.JacksonUtil;
 
 import java.io.IOException;
 
@@ -21,7 +21,7 @@ public class DefaultDisposeTransform<T> implements DisposeTransform<T> {
     @Override
     public T disposeTransform(HttpMethod httpMethod) throws IOException {
 
-        return Jackson.parseJsonToObj(httpMethod.getResponseBodyAsString(), this.clazz);
+        return JacksonUtil.parseJsonToObj(httpMethod.getResponseBodyAsString(), this.clazz);
 
     }
 
