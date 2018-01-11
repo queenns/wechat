@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wrapper xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.queenns.org/schema/wrapper"
+        xsi:noNamespaceSchemaLocation="org/queenns/tool/xml/wechat-info-wrapper.xsd">
+
+    <group id="other">
+        <information id="x">
+            <url>22</url>
+        </information>
+        <information id="y">
+            <url>22</url>
+        </information>
+        <information id="z">
+            <url>22</url>
+        </information>
+    </group>
+
+
+
+</wrapper>

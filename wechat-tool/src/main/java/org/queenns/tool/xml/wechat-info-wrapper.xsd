@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<xsd:schema xmlns="http://www.queenns.org/schema/wrapper"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.queenns.org/schema/wrapper">
+
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+
+    <xsd:annotation>
+        <xsd:documentation><![CDATA[
+	wechat-rule-defined xml schema, version 1.0
+	Authors: queenns
+
+	wechat interface abstract encapsulation
+        ]]></xsd:documentation>
+    </xsd:annotation>
+
+
+    <xsd:element name="wrapper">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[
+	The top level (typically root) element. Allows the definition
+    of default values for all nested defined definitions.
+			]]></xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="group"/>
+            </xsd:sequence>
+        </xsd:complexType>
+
+    </xsd:element>
+
+    <xsd:element name="group">
+        <xsd:complexType>
+            <xsd:attribute name="id" type="xsd:ID" use="required" default="other"/>
+            <xsd:sequence>
+                <xsd:element ref="information"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="information">
+        <xsd:complexType>
+            <xsd:attribute name="id" type="xsd:ID" use="required"/>
+            <xsd:sequence>
+                <xsd:element name="methodType"/>
+                <xsd:element name="url"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>

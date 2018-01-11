@@ -3,6 +3,13 @@ version '1.0.0'
 
 apply plugin: 'java'
 
+jar{
+    from('src/main/java'){
+        include 'org/queenns/tool/*.xsd'
+    }
+}
+
+
 repositories {
     mavenCentral()
 }
