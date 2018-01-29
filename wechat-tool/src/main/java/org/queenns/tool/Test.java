@@ -1,6 +1,7 @@
 package org.queenns.tool;
 
-import org.queenns.tool.access.GetResourceAccess;
+import org.queenns.tool.access.AccessTokenAccess;
+import org.queenns.tool.main.WechatTool;
 
 import java.io.IOException;
 import java.util.Map;
@@ -14,7 +15,11 @@ public class Test {
 
     public static void main(String[] args) throws IOException {
 
-        Map map = new GetResourceAccess<Map>(url, Map.class).access();
+        String xxx = WechatTool.call("accessToken");
+
+        Map map = new AccessTokenAccess(url).access();
+
+        /*Map map = new GetResourceAccess<Map>(url).access();*/
 
         System.out.println(map);
 

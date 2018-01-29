@@ -7,7 +7,8 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.queenns.tool.exception.AccessException;
-import org.queenns.tool.util.JacksonUtil;
+import org.queenns.tool.transform.dispose.DisposeTransform;
+import org.queenns.tool.transform.dispose.JsonDisposeTransform;
 import org.queenns.tool.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +41,7 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
     /**
      * data real dispose
      */
-    private DisposeTransform<T> disposeTransform = defaultDisposeTransform();
+    private DisposeTransform<T> disposeTransform;
 
     /**
      * timeout for connection
@@ -58,6 +59,8 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
 
         this.methodType = methodType;
 
+        this.disposeTransform = defaultDisposeTransform();
+
     }
 
     AbstractResourceAccess(String url, MethodType methodType, Class<T> clazz) {
@@ -68,6 +71,8 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
 
         this.methodType = methodType;
 
+        this.disposeTransform = defaultDisposeTransform();
+
     }
 
     AbstractResourceAccess(MethodType methodType, DisposeTransform<T> disposeTransform, Class<T> clazz) {
@@ -77,6 +82,18 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
         this.methodType = methodType;
 
         this.disposeTransform = disposeTransform;
+
+    }
+
+    AbstractResourceAccess(String url, MethodType methodType){
+
+        initClazz();
+
+        this.url = url;
+
+        this.methodType = methodType;
+
+        this.disposeTransform = defaultDisposeTransform();
 
     }
 
@@ -127,7 +144,7 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
     @SuppressWarnings("unchecked")
     private void initClazz() {
 
-        this.clazz = ((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
+        this.clazz = ((Class<T>) (((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]));
 
     }
 
@@ -168,16 +185,7 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
 
     private DisposeTransform<T> defaultDisposeTransform() {
 
-        return new DisposeTransform<T>() {
-
-            @Override
-            public T disposeTransform(HttpMethod httpMethod) throws IOException {
-
-                return JacksonUtil.parseJsonToObj(httpMethod.getResponseBodyAsString(), getClazz());
-
-            }
-
-        };
+        return new JsonDisposeTransform<>(getClazz());
 
     }
 

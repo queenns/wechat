@@ -45,10 +45,24 @@
         <xsd:complexType>
             <xsd:attribute name="id" type="xsd:ID" use="required"/>
             <xsd:sequence>
-                <xsd:element name="methodType"/>
-                <xsd:element name="url"/>
+                <xsd:element ref="methodType"/>
+                <xsd:element name="url" type="xsd:anyURI"/>
             </xsd:sequence>
         </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="methodType">
+        <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+                <xsd:enumeration value="GET"/>
+                <xsd:enumeration value="POST"/>
+            </xsd:restriction>
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[
+	http type GET:POST:etc
+			]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:simpleType>
     </xsd:element>
 
 </xsd:schema>
