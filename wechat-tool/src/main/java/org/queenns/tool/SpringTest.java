@@ -6,14 +6,18 @@ import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
+import java.io.IOException;
+
 /**
  * Created by lxj on 18-2-22
  */
 public class SpringTest {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Resource resource = new ClassPathResource("applicationContext.xml");
+
+        resource.getURL();
 
         BeanFactory beanFactory = new XmlBeanFactory(resource);
 

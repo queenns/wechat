@@ -1,7 +1,6 @@
 package org.queenns.tool.xml;
 
 import org.queenns.tool.util.StringUtil;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -12,18 +11,8 @@ public abstract class AbstractParserDelegate extends DefaultHandler {
 
     public static final String ATTRIBUTION_ID = "id";
 
-    private InputSource inputSource;
-
     public AbstractParserDelegate() {
         super();
-    }
-
-    public InputSource getInputSource() {
-        return inputSource;
-    }
-
-    public void setInputSource(InputSource inputSource) {
-        this.inputSource = inputSource;
     }
 
     @Override

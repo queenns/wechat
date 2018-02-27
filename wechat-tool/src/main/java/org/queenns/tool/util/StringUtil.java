@@ -37,4 +37,34 @@ public abstract class StringUtil {
 
     }
 
+    public static String replace(String source, String appoint, String replace) {
+
+        if (!hasLength(source) || !hasLength(appoint) || replace == null) return source;
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        int position = 0;
+
+        int index = source.indexOf(appoint);
+
+        int length = appoint.length();
+
+        while (index >= 0) {
+
+            stringBuilder.append(source.substring(position, index));
+
+            stringBuilder.append(replace);
+
+            position = index + length;
+
+            index = source.indexOf(appoint, position);
+
+        }
+
+        stringBuilder.append(source.substring(position));
+
+        return stringBuilder.toString();
+
+    }
+
 }

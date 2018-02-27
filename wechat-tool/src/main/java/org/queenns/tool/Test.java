@@ -3,10 +3,7 @@ package org.queenns.tool;
 import org.queenns.tool.access.AccessTokenAccess;
 import org.queenns.tool.factory.InfoWrapperFactory;
 import org.queenns.tool.main.WechatTool;
-import org.queenns.tool.xml.InfoWrapperParserDelegate;
-import org.queenns.tool.xml.XmlReaderContext;
 
-import java.io.IOException;
 import java.util.Map;
 
 /**
