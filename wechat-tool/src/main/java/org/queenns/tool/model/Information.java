@@ -40,9 +40,9 @@ public class Information {
     @Override
     public String toString() {
         return "Information{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", methodType=" + methodType +
-                ", url='" + url + '\'' +
+                ", url=" + url +
                 '}';
     }
 

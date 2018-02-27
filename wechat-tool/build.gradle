@@ -3,13 +3,6 @@ version '1.0.0'
 
 apply plugin: 'java'
 
-jar{
-    from('src/main/java'){
-        include 'org/queenns/tool/*.xsd'
-    }
-}
-
-
 repositories {
     mavenCentral()
 }
@@ -27,4 +20,31 @@ dependencies {
     compile('commons-httpclient:commons-httpclient:3.1')
     compile('com.fasterxml.jackson.core:jackson-core:2.7.4')
     compile('com.fasterxml.jackson.core:jackson-databind:2.7.4')
+
+    compile('org.springframework:spring-core:4.2.7.RELEASE')
+    compile('org.springframework:spring-beans:4.2.7.RELEASE')
+    compile('org.springframework:spring-web:4.2.7.RELEASE')
+    compile('org.springframework:spring-orm:4.2.7.RELEASE')
+    compile('org.springframework:spring-context:4.2.7.RELEASE')
+    compile('org.springframework:spring-aop:4.2.7.RELEASE')
+    compile('org.springframework:spring-expression:4.2.7.RELEASE')
+    compile('org.springframework:spring-tx:4.2.7.RELEASE')
+    compile('org.springframework:spring-webmvc:4.2.7.RELEASE')
+    compile('org.springframework:spring-context-support:4.2.7.RELEASE')
+}
+
+jar {
+
+    manifest {
+        attributes 'Main-Class': 'org.queenns.tool.Test'
+    }
+
+    from('src/main/java') {
+        include 'org/queenns/tool/*.xsd'
+    }
+
+    into ('/'){
+        from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
 }

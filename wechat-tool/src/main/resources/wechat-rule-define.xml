@@ -3,13 +3,13 @@
          xmlns="http://www.queenns.org/schema/wrapper"
          xsi:noNamespaceSchemaLocation="org/queenns/tool/xml/wechat-info-wrapper.xsd">
 
-    <!--重要接口-->
+    <!--核心接口-->
     <group id="main">
 
         <!--accessToken-->
         <information id="accessToken">
             <methodType>GET</methodType>
-            <url>https://api.weixin.qq.com/cgi-bin/token</url>
+            <url><![CDATA[https://api.weixin.qq.com/cgi-bin/token]]></url>
         </information>
 
     </group>
@@ -20,37 +20,37 @@
         <!--自定义菜单创建接口-->
         <information id="createMenu">
             <methodType>POST</methodType>
-            <url>https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN</url>
+            <url><![CDATA[https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN]]></url>
         </information>
 
         <!--自定义菜单查询接口-->
         <information id="findMenu">
             <methodType>POST</methodType>
-            <url>https://api.weixin.qq.com/cgi-bin/menu/get?access_token=ACCESS_TOKEN</url>
+            <url><![CDATA[https://api.weixin.qq.com/cgi-bin/menu/get?access_token=ACCESS_TOKEN]]></url>
         </information>
 
         <!--自定义菜单删除接口-->
         <information id="deleteMenu">
             <methodType>GET</methodType>
-            <url>https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=ACCESS_TOKEN</url>
+            <url><![CDATA[https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=ACCESS_TOKEN]]></url>
         </information>
 
         <!--个性化菜单创建接口-->
         <information id="specialCreateMenu">
             <methodType>POST</methodType>
-            <url>https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token=ACCESS_TOKEN</url>
+            <url><![CDATA[https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token=ACCESS_TOKEN]]></url>
         </information>
 
         <!--个性化菜单删除接口-->
         <information id="specialDeleteMenu">
             <methodType>POST</methodType>
-            <url>https://api.weixin.qq.com/cgi-bin/menu/delconditional?access_token=ACCESS_TOKEN</url>
+            <url><![CDATA[https://api.weixin.qq.com/cgi-bin/menu/delconditional?access_token=ACCESS_TOKEN]]></url>
         </information>
 
         <!--个性化菜单匹配接口-->
         <information id="specialMatchConfigMenu">
             <methodType>POST</methodType>
-            <url>https://api.weixin.qq.com/cgi-bin/menu/trymatch?access_token=ACCESS_TOKEN</url>
+            <url><![CDATA[https://api.weixin.qq.com/cgi-bin/menu/trymatch?access_token=ACCESS_TOKEN]]></url>
         </information>
 
     </group>
@@ -67,7 +67,6 @@
             <url>
                 <![CDATA[https://api.weixin.qq.com/cgi-bin/media/get?access_token=ACCESS_TOKEN&media_id=MEDIA_ID]]></url>
         </information>
-
 
     </group>
 

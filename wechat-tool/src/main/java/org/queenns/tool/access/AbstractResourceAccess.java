@@ -171,7 +171,7 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
 
             long finishTime = System.currentTimeMillis();
 
-            logger.info("access continued time {} mm", finishTime - startTime);
+            logger.info("access execute time {} mm", finishTime - startTime);
 
             return disposeTransform.disposeTransform(httpMethod);
 
