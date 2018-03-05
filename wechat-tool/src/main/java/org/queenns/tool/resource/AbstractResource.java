@@ -1,7 +1,7 @@
 package org.queenns.tool.resource;
 
 import org.queenns.tool.util.ObjectUtil;
-import org.queenns.tool.util.StringUtil;
+import org.queenns.tool.util.ResourceUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,12 +19,6 @@ import java.net.URL;
 public abstract class AbstractResource implements Resource {
 
     public AbstractResource() {
-    }
-
-    @Override
-    public InputStream getInputStream() throws IOException {
-
-        return null;
     }
 
     @Override
@@ -46,7 +40,7 @@ public abstract class AbstractResource implements Resource {
     @Override
     public boolean isReadable() {
 
-        return false;
+        return true;
 
     }
 
@@ -71,9 +65,7 @@ public abstract class AbstractResource implements Resource {
 
         try {
 
-            String uri = StringUtil.replace(url.toString(), " ", "%20");
-
-            return new URI(uri);
+            return ResourceUtil.toURI(url);
 
         } catch (URISyntaxException e) {
 

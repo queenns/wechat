@@ -12,7 +12,7 @@ import java.net.URL;
 /**
  * Created by lxj on 18-2-27
  */
-public class ClassPathResource extends AbstractResource {
+public class ClassPathResource extends FileResource {
 
     private String classPath;
 
@@ -45,7 +45,7 @@ public class ClassPathResource extends AbstractResource {
 
         InputStream inputStream = !ObjectUtil.isEmpty(classLoader) ? classLoader.getResourceAsStream(this.classPath) : ClassLoader.getSystemResourceAsStream(this.classPath);
 
-        if (inputStream == null) throw new FileNotFoundException(this.getClass().getName() + " cannot be opened because it does not exist");
+        if (ObjectUtil.isEmpty(inputStream)) throw new FileNotFoundException(this.getClass().getName() + " cannot be opened because it does not exist");
 
         return inputStream;
 
@@ -59,9 +59,20 @@ public class ClassPathResource extends AbstractResource {
     }
 
     @Override
+    public URL getURL() throws IOException {
+
+        URL url = resolveURL();
+
+        if (ObjectUtil.isEmpty(url)) throw new FileNotFoundException(this.getClass().getName() + "cannot be resolved to URL because it does not exist");
+
+        return url;
+
+    }
+
+    @Override
     public String getFilename() {
 
-        int lastIndex = classPath.lastIndexOf(".");
+        int lastIndex = classPath.lastIndexOf("/");
 
         return (lastIndex != -1 ? classPath.substring(lastIndex + 1) : classPath);
 

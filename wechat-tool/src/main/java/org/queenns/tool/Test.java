@@ -3,7 +3,13 @@ package org.queenns.tool;
 import org.queenns.tool.access.AccessTokenAccess;
 import org.queenns.tool.factory.InfoWrapperFactory;
 import org.queenns.tool.main.WechatTool;
+import org.queenns.tool.resource.ClassPathResource;
+import org.queenns.tool.resource.Resource;
 
+import java.io.File;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URL;
 import java.util.Map;
 
 /**

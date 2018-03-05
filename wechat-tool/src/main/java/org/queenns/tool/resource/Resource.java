@@ -13,9 +13,7 @@ import java.net.URL;
  * <p>
  * <reference source Spring>
  */
-public interface Resource {
-
-    InputStream getInputStream() throws IOException;
+public interface Resource extends InputStreamSource{
 
     boolean exists();
 
