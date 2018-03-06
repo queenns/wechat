@@ -34,18 +34,13 @@ public class ClassPathResource extends FileResource {
 
     }
 
-    protected URL resolveURL() {
-
-        return !ObjectUtil.isEmpty(classLoader) ? this.classLoader.getResource(this.classPath) : ClassLoader.getSystemResource(this.classPath);
-
-    }
-
     @Override
     public InputStream getInputStream() throws IOException {
 
         InputStream inputStream = !ObjectUtil.isEmpty(classLoader) ? classLoader.getResourceAsStream(this.classPath) : ClassLoader.getSystemResourceAsStream(this.classPath);
 
-        if (ObjectUtil.isEmpty(inputStream)) throw new FileNotFoundException(this.getClass().getName() + " cannot be opened because it does not exist");
+        if (ObjectUtil.isEmpty(inputStream))
+            throw new FileNotFoundException(this.getClass().getName() + " cannot be opened because it does not exist");
 
         return inputStream;
 
@@ -54,16 +49,27 @@ public class ClassPathResource extends FileResource {
     @Override
     public boolean exists() {
 
-        return (!ObjectUtil.isEmpty(resolveURL()));
+        try {
+
+            getURL();
+
+            return true;
+
+        } catch (IOException e) {
+
+            return false;
+
+        }
 
     }
 
     @Override
     public URL getURL() throws IOException {
 
-        URL url = resolveURL();
+        URL url = !ObjectUtil.isEmpty(classLoader) ? this.classLoader.getResource(this.classPath) : ClassLoader.getSystemResource(this.classPath);
 
-        if (ObjectUtil.isEmpty(url)) throw new FileNotFoundException(this.getClass().getName() + "cannot be resolved to URL because it does not exist");
+        if (ObjectUtil.isEmpty(url))
+            throw new FileNotFoundException(this.getClass().getName() + "cannot be resolved to URL because it does not exist");
 
         return url;
 

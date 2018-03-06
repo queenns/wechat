@@ -21,6 +21,12 @@ public class Test {
 
     public static void main(String[] args) throws Exception {
 
+        Resource resource = new ClassPathResource("wechat-rule-define.xml");
+
+        URL aaa = resource.getURL();
+
+        System.out.println(aaa);
+
         InfoWrapperFactory infoWrapperFactory = new InfoWrapperFactory();
 
         String xxx = WechatTool.call("accessToken");
