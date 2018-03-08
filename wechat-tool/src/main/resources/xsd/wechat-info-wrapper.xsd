@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<xsd:schema xmlns="http://www.queenns.org/schema/wrapper"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.queenns.org/schema/wrapper">
+
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+
+    <xsd:annotation>
+        <xsd:documentation><![CDATA[
+	wechat-rule-defined xml schema, version 1.0
+	Authors: queenns
+
+	wechat interface abstract encapsulation
+        ]]></xsd:documentation>
+    </xsd:annotation>
+
+
+    <xsd:element name="wrapper" type="wrapperType">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[
+	The top level (typically root) element. Allows the definition
+    of default values for all nested defined definitions.
+			]]></xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+    <xsd:complexType name="wrapperType">
+        <xsd:sequence maxOccurs="unbounded">
+            <xsd:element ref="group"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="group" type="groupType"/>
+
+    <xsd:complexType name="groupType">
+        <xsd:sequence maxOccurs="unbounded">
+            <xsd:element ref="information"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:ID" use="required"/>
+    </xsd:complexType>
+
+    <xsd:element name="information" type="informationType"/>
+
+    <xsd:complexType name="informationType">
+        <xsd:sequence>
+            <xsd:element ref="method"/>
+            <xsd:element ref="url"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:ID" use="required"/>
+    </xsd:complexType>
+
+    <xsd:element name="method" type="methodType">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[
+	http type GET:POST:PUT:etc
+			]]></xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+    <xsd:simpleType name="methodType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="GET"/>
+            <xsd:enumeration value="POST"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:element name="url" type="urlType"/>
+
+    <xsd:simpleType name="urlType">
+        <xsd:restriction base="xsd:anyURI"/>
+    </xsd:simpleType>
+
+</xsd:schema>

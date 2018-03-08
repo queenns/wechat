@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wrapper xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://www.queenns.org/schema/wrapper"
-         xsi:noNamespaceSchemaLocation="org/queenns/tool/xml/wechat-info-wrapper.xsd">
+<wrapper xmlns="http://www.queenns.org/schema/wrapper"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.queenns.org/schema/wrapper http://www.queenns.org/schema/wrapper/wechat-info-wrapper.xsd">
 
     <!--核心接口-->
     <group id="main">
 
         <!--accessToken-->
         <information id="accessToken">
-            <methodType>GET</methodType>
+            <method>GET</method>
             <url><![CDATA[https://api.weixin.qq.com/cgi-bin/token]]></url>
         </information>
 
@@ -19,37 +19,37 @@
 
         <!--自定义菜单创建接口-->
         <information id="createMenu">
-            <methodType>POST</methodType>
+            <method>POST</method>
             <url><![CDATA[https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN]]></url>
         </information>
 
         <!--自定义菜单查询接口-->
         <information id="findMenu">
-            <methodType>POST</methodType>
+            <method>POST</method>
             <url><![CDATA[https://api.weixin.qq.com/cgi-bin/menu/get?access_token=ACCESS_TOKEN]]></url>
         </information>
 
         <!--自定义菜单删除接口-->
         <information id="deleteMenu">
-            <methodType>GET</methodType>
+            <method>GET</method>
             <url><![CDATA[https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=ACCESS_TOKEN]]></url>
         </information>
 
         <!--个性化菜单创建接口-->
         <information id="specialCreateMenu">
-            <methodType>POST</methodType>
+            <method>POST</method>
             <url><![CDATA[https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token=ACCESS_TOKEN]]></url>
         </information>
 
         <!--个性化菜单删除接口-->
         <information id="specialDeleteMenu">
-            <methodType>POST</methodType>
+            <method>POST</method>
             <url><![CDATA[https://api.weixin.qq.com/cgi-bin/menu/delconditional?access_token=ACCESS_TOKEN]]></url>
         </information>
 
         <!--个性化菜单匹配接口-->
         <information id="specialMatchConfigMenu">
-            <methodType>POST</methodType>
+            <method>POST</method>
             <url><![CDATA[https://api.weixin.qq.com/cgi-bin/menu/trymatch?access_token=ACCESS_TOKEN]]></url>
         </information>
 
@@ -58,12 +58,12 @@
     <group id="material">
 
         <information id="createTemporaryMaterial">
-            <methodType>POST</methodType>
+            <method>POST</method>
             <url> <![CDATA[https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE]]></url>
         </information>
 
         <information id="findTemporaryMaterial">
-            <methodType>GET</methodType>
+            <method>GET</method>
             <url>
                 <![CDATA[https://api.weixin.qq.com/cgi-bin/media/get?access_token=ACCESS_TOKEN&media_id=MEDIA_ID]]></url>
         </information>

@@ -1,31 +1,69 @@
 package org.queenns.tool.factory;
 
-import org.xml.sax.helpers.DefaultHandler;
+import org.queenns.tool.exception.ParserXmlException;
+import org.queenns.tool.resource.Resource;
+import org.queenns.tool.xml.AbstractParserDelegate;
+import org.queenns.tool.xml.DefaultDocumentLoader;
+import org.queenns.tool.xml.DocumentLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
 
 /**
  * Created by lxj on 18-2-22
  */
-public class AbstractXmlParserFactory implements XmlParserFactory {
+public abstract class AbstractXmlParserFactory implements XmlParserFactory {
 
-    private String fileName;
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private ClassLoader classLoader;
+    private Resource resource;
 
-    private DefaultHandler defaultHandler;
+    private AbstractParserDelegate abstractParserDelegate;
 
-    public AbstractXmlParserFactory(String fileName, ClassLoader classLoader, DefaultHandler defaultHandler) {
+    private DocumentLoader documentLoader = new DefaultDocumentLoader();
 
-        this.fileName = fileName;
+    protected AbstractXmlParserFactory() {
 
-        this.classLoader = classLoader != null ? classLoader : this.getClass().getClassLoader();
-
-        this.defaultHandler = defaultHandler;
+        install();
 
     }
 
-    @Override
-    public void parser() {
+    /**
+     * 初始化参数
+     */
+    protected abstract void install();
 
+    @Override
+    public void parser() throws ParserXmlException {
+
+        try {
+
+            Document document = documentLoader.loadDocument(resource, abstractParserDelegate);
+
+            logger.info(document.toString());
+
+        } catch (Exception exception) {
+
+            throw new ParserXmlException(resource, exception);
+
+        }
+
+    }
+
+    public Resource getResource() {
+        return resource;
+    }
+
+    public void setResource(Resource resource) {
+        this.resource = resource;
+    }
+
+    public AbstractParserDelegate getAbstractParserDelegate() {
+        return abstractParserDelegate;
+    }
+
+    public void setAbstractParserDelegate(AbstractParserDelegate abstractParserDelegate) {
+        this.abstractParserDelegate = abstractParserDelegate;
     }
 
 }

@@ -40,7 +40,8 @@ public class ClassPathResource extends FileResource {
         InputStream inputStream = !ObjectUtil.isEmpty(classLoader) ? classLoader.getResourceAsStream(this.classPath) : ClassLoader.getSystemResourceAsStream(this.classPath);
 
         if (ObjectUtil.isEmpty(inputStream))
-            throw new FileNotFoundException(this.getClass().getName() + " cannot be opened because it does not exist");
+
+            throw new FileNotFoundException(this.getClass().getName() + " cannot be opened [" + this.classPath + "] because it does not exist");
 
         return inputStream;
 
@@ -69,6 +70,7 @@ public class ClassPathResource extends FileResource {
         URL url = !ObjectUtil.isEmpty(classLoader) ? this.classLoader.getResource(this.classPath) : ClassLoader.getSystemResource(this.classPath);
 
         if (ObjectUtil.isEmpty(url))
+
             throw new FileNotFoundException(this.getClass().getName() + "cannot be resolved to URL because it does not exist");
 
         return url;

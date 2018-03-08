@@ -1,22 +1,37 @@
 package org.queenns.tool.factory;
 
-import org.queenns.tool.model.Information;
+import org.queenns.tool.resource.ClassPathResource;
 import org.queenns.tool.xml.InfoWrapperParserDelegate;
-
-import java.util.LinkedHashMap;
 
 /**
  * Created by lxj on 18-2-22
  */
 public class InfoWrapperFactory extends AbstractXmlParserFactory {
 
-    private static final String fileName = "wechat-rule-define.xml";
+    private InfoWrapperFactory() {
 
-    private LinkedHashMap<String, Information> informations = new LinkedHashMap<>();
+        super();
 
-    public InfoWrapperFactory() {
+    }
 
-        super(fileName, null, new InfoWrapperParserDelegate());
+    private static class Singleton{
+
+        private static final InfoWrapperFactory infoWrapperFactory = new InfoWrapperFactory();
+
+    }
+
+    public static InfoWrapperFactory getInstance(){
+
+        return Singleton.infoWrapperFactory;
+
+    }
+
+    @Override
+    protected void install() {
+
+        setResource(new ClassPathResource("wechat-rule-define.xml"));
+
+        setAbstractParserDelegate(new InfoWrapperParserDelegate());
 
     }
 

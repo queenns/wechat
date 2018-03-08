@@ -1,5 +1,6 @@
 package org.queenns.tool.xml;
 
+import org.queenns.tool.resource.Resource;
 import org.w3c.dom.Document;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
@@ -8,6 +9,7 @@ import org.xml.sax.InputSource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.InputStream;
 
 /**
  * Created by lxj on 18-2-22
@@ -25,13 +27,19 @@ public class DefaultDocumentLoader implements DocumentLoader {
     private static final String XSD_SCHEMA_LANGUAGE = "http://www.w3.org/2001/XMLSchema";
 
     @Override
-    public Document loadDocument(InputSource inputSource, EntityResolver entityResolver, ErrorHandler errorHandler, int validationMode, boolean namespaceAware) throws Exception {
+    public Document loadDocument(Resource resource, ParserDelegate parserDelegate) throws Exception {
 
-        DocumentBuilderFactory documentBuilderFactory = createDocumentBuilderFactory(validationMode, namespaceAware);
+        DocumentBuilderFactory documentBuilderFactory = createDocumentBuilderFactory(parserDelegate.getValidationMode(resource), parserDelegate.getNamespaceAware());
 
-        DocumentBuilder documentBuilder = createDocumentBuilder(documentBuilderFactory, entityResolver, errorHandler);
+        DocumentBuilder documentBuilder = createDocumentBuilder(documentBuilderFactory, parserDelegate.getEntityResolver(), parserDelegate.getErrorHandler());
 
-        return documentBuilder.parse(inputSource);
+        try (InputStream inputStream = resource.getInputStream()){
+
+            InputSource inputSource = new InputSource(inputStream);
+
+            return documentBuilder.parse(inputSource);
+
+        }
 
     }
 

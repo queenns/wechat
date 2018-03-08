@@ -1,10 +1,14 @@
 package org.queenns.tool;
 
 import org.queenns.tool.access.AccessTokenAccess;
+import org.queenns.tool.exception.ParserXmlException;
 import org.queenns.tool.factory.InfoWrapperFactory;
 import org.queenns.tool.main.WechatTool;
+
+
 import org.queenns.tool.resource.ClassPathResource;
 import org.queenns.tool.resource.Resource;
+
 
 import java.io.File;
 import java.io.InputStream;
@@ -19,23 +23,17 @@ public class Test {
 
     public static String url = "http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip=218.4.255.255";
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws ParserXmlException {
 
-        Resource resource = new ClassPathResource("wechat-rule-define.xml");
+        InfoWrapperFactory.getInstance().parser();
 
-        URL aaa = resource.getURL();
-
-        System.out.println(aaa);
-
-        InfoWrapperFactory infoWrapperFactory = new InfoWrapperFactory();
-
-        String xxx = WechatTool.call("accessToken");
+        /*String xxx = WechatTool.call("accessToken");
 
         Map map = new AccessTokenAccess(url).access();
 
-        /*Map map = new GetResourceAccess<Map>(url).access();*/
+        Map map = new GetResourceAccess<Map>(url).access();
 
-        System.out.println(map);
+        System.out.println(map);*/
 
     }
 
