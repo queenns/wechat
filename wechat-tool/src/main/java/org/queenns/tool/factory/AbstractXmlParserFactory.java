@@ -7,7 +7,7 @@ import org.queenns.tool.xml.DefaultDocumentLoader;
 import org.queenns.tool.xml.DocumentLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
+import org.w3c.dom.*;
 
 /**
  * Created by lxj on 18-2-22
@@ -33,12 +33,47 @@ public abstract class AbstractXmlParserFactory implements XmlParserFactory {
      */
     protected abstract void install();
 
+    void parser(Element element) {
+
+        NodeList nodes = element.getChildNodes();
+
+        for (int i = 0; i < nodes.getLength(); i++) {
+
+            Node node = nodes.item(i);
+
+            if (node instanceof Element) {
+                logger.debug("------------------------------------------");
+
+                NamedNodeMap attributes = node.getAttributes();
+
+                for (int j = 0; j < attributes.getLength(); j++) {
+
+                    Node attrNode = attributes.item(j);
+
+                    logger.debug("id[{}]", attrNode.getNodeValue());
+
+                }
+
+                logger.debug("text[{}]URI[{}]tag[{}]", node.getNodeValue(),node.getNamespaceURI(), ((Element) node).getTagName());
+
+                parser((Element) node);
+
+                logger.debug("------------------------------------------");
+
+            }
+
+        }
+
+    }
+
     @Override
     public void parser() throws ParserXmlException {
 
         try {
 
             Document document = documentLoader.loadDocument(resource, abstractParserDelegate);
+
+            parser(document.getDocumentElement());
 
             logger.info(document.toString());
 

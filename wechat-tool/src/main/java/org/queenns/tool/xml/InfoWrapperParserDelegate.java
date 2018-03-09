@@ -8,6 +8,8 @@ import org.xml.sax.SAXException;
  */
 public class InfoWrapperParserDelegate extends AbstractParserDelegate {
 
+    public static final String WRAPPER_NAMESPACE_URI = "http://www.queenns.org/schema/wrapper";
+
     private static final String ELEMENT_GROUP = "group";
 
     private static final String ELEMENT_INFORMATION = "information";
