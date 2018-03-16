@@ -40,7 +40,7 @@ jar {
     }
 
     from('src/main/java') {
-        include 'org/queenns/tool/*.xsd'
+        // include 'org/queenns/tool/xml/*.xsd'
     }
 
     into ('/'){

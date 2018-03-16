@@ -2,16 +2,13 @@
 <wrapper xmlns="http://www.queenns.org/schema/wrapper"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://www.queenns.org/schema/wrapper http://www.queenns.org/schema/wrapper/wechat-info-wrapper.xsd">
-
     <!--核心接口-->
     <group id="main">
-
         <!--accessToken-->
         <information id="accessToken">
             <method>GET</method>
             <url><![CDATA[https://api.weixin.qq.com/cgi-bin/token]]></url>
         </information>
-
     </group>
 
     <!--自定义菜单-->

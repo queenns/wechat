@@ -6,8 +6,10 @@ import org.queenns.tool.factory.InfoWrapperFactory;
 import org.queenns.tool.main.WechatTool;
 
 
-import org.queenns.tool.resource.ClassPathResource;
-import org.queenns.tool.resource.Resource;
+
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.util.ClassUtils;
 
 
 import java.io.File;

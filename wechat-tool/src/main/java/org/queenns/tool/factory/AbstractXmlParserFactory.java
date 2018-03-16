@@ -41,20 +41,11 @@ public abstract class AbstractXmlParserFactory implements XmlParserFactory {
 
             Node node = nodes.item(i);
 
-            if (node instanceof Element) {
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+
                 logger.debug("------------------------------------------");
 
-                NamedNodeMap attributes = node.getAttributes();
-
-                for (int j = 0; j < attributes.getLength(); j++) {
-
-                    Node attrNode = attributes.item(j);
-
-                    logger.debug("id[{}]", attrNode.getNodeValue());
-
-                }
-
-                logger.debug("text[{}]URI[{}]tag[{}]", node.getNodeValue(),node.getNamespaceURI(), ((Element) node).getTagName());
+                logger.debug("text[{}]URI[{}]tag[{}]", node.getTextContent(),node.getNamespaceURI(), ((Element) node).getTagName());
 
                 parser((Element) node);
 

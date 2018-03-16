@@ -15,7 +15,6 @@
         ]]></xsd:documentation>
     </xsd:annotation>
 
-
     <xsd:element name="wrapper" type="wrapperType">
         <xsd:annotation>
             <xsd:documentation><![CDATA[
@@ -65,10 +64,6 @@
         </xsd:restriction>
     </xsd:simpleType>
 
-    <xsd:element name="url" type="urlType"/>
-
-    <xsd:simpleType name="urlType">
-        <xsd:restriction base="xsd:anyURI"/>
-    </xsd:simpleType>
+    <xsd:element name="url" type="xsd:anyURI"/>
 
 </xsd:schema>
