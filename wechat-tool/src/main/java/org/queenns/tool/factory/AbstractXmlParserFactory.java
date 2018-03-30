@@ -5,6 +5,7 @@ import org.queenns.tool.resource.Resource;
 import org.queenns.tool.xml.AbstractParserDelegate;
 import org.queenns.tool.xml.DefaultDocumentLoader;
 import org.queenns.tool.xml.DocumentLoader;
+import org.queenns.tool.xml.extract.UrlExtractor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
@@ -34,6 +35,10 @@ public abstract class AbstractXmlParserFactory implements XmlParserFactory {
     protected abstract void install();
 
     void parser(Element element) {
+
+        if (element.getTagName().equals("url")){
+            //new UrlExtractor().extract(element);
+        }
 
         NodeList nodes = element.getChildNodes();
 

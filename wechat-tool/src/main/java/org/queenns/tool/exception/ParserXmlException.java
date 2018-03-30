@@ -7,6 +7,12 @@ import org.queenns.tool.resource.Resource;
  */
 public class ParserXmlException extends Exception {
 
+    public ParserXmlException(String message) {
+
+        super(message);
+
+    }
+
     public ParserXmlException(Resource resource, Exception exception) {
 
         super("file [" + resource.getFilename() + "]" + exception.getMessage());
