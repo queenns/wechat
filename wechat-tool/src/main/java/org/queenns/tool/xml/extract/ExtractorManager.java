@@ -6,8 +6,8 @@ import org.queenns.tool.util.StringUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by lxj on 18-3-30
@@ -16,7 +16,7 @@ public class ExtractorManager {
 
     private Class clazz = Extract.class;
 
-    private Map<String, Class<? extends Extractor>> extractors = new HashMap<String, Class<? extends Extractor>>();
+    private Map<String, Class<? extends Extractor>> extractors = new ConcurrentHashMap<>();
 
     private ExtractorManager() throws IOException {
 
