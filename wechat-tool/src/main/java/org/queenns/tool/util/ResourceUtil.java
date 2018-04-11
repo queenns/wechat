@@ -17,17 +17,22 @@ public abstract class ResourceUtil {
      */
     public static final String URL_PROTOCOL_FILE = "file";
 
-    /** URL protocol for an entry from a jar file: "jar" */
+    /**
+     * URL protocol for an entry from a jar file: "jar"
+     */
     public static final String URL_PROTOCOL_JAR = "jar";
 
-    /** URL protocol for an entry from a zip file: "zip" */
+    /**
+     * URL protocol for an entry from a zip file: "zip"
+     */
     public static final String URL_PROTOCOL_ZIP = "zip";
 
     public static File getFile(URL url) throws FileNotFoundException {
 
-        if (ObjectUtil.isEmpty(url)) throw new IllegalArgumentException("resource url must not be null");
+        AssertUtil.empty(ObjectUtil.isEmpty(url), "resource url must not be null");
 
         if (!URL_PROTOCOL_FILE.equals(url.getProtocol()))
+
             throw new FileNotFoundException(url.getProtocol() + "not equals" + URL_PROTOCOL_FILE);
 
         try {
@@ -39,6 +44,18 @@ public abstract class ResourceUtil {
             return new File(url.getFile());
 
         }
+
+    }
+
+    public static File getFile(URI uri) throws FileNotFoundException {
+
+        AssertUtil.empty(ObjectUtil.isEmpty(uri), "resource uri must mot be null");
+
+        if (!URL_PROTOCOL_FILE.equals(uri.getScheme()))
+
+            throw new FileNotFoundException(uri.getScheme() + " cannot be resolved to absolute file path,because it does not reside in the file system");
+
+        return new File(uri.getSchemeSpecificPart());
 
     }
 
@@ -64,7 +81,7 @@ public abstract class ResourceUtil {
 
         String protocol = url.getProtocol();
 
-        return (URL_PROTOCOL_JAR.equals(protocol) || URL_PROTOCOL_ZIP.equals(protocol) );
+        return (URL_PROTOCOL_JAR.equals(protocol) || URL_PROTOCOL_ZIP.equals(protocol));
 
     }
 

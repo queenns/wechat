@@ -1,5 +1,6 @@
 package org.queenns.tool.resource;
 
+import org.queenns.tool.util.AssertUtil;
 import org.queenns.tool.util.ObjectUtil;
 import org.queenns.tool.util.ResourceUtil;
 
@@ -85,9 +86,9 @@ public abstract class AbstractResource implements Resource {
     @Override
     public long contentLength() throws IOException {
 
-        try(InputStream inputStream = getInputStream()){
+        try (InputStream inputStream = getInputStream()) {
 
-            if (ObjectUtil.isEmpty(inputStream)) throw new IllegalStateException("Resource InputStream must not be null");
+            AssertUtil.empty(ObjectUtil.isEmpty(inputStream), "Resource InputStream must not be null");
 
             long size = 0;
 
@@ -108,14 +109,16 @@ public abstract class AbstractResource implements Resource {
 
         long lastModified = getFile().lastModified();
 
-        if (lastModified == 0L) throw new FileNotFoundException(this.getClass().getName() + "cannot be resolved last-modified");
+        if (lastModified == 0L)
+
+            throw new FileNotFoundException(this.getClass().getName() + "cannot be resolved last-modified");
 
         return lastModified;
 
     }
 
     @Override
-    public String getFilename(){
+    public String getFilename() {
 
         return null;
 

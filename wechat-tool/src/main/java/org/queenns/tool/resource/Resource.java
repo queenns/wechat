@@ -13,7 +13,7 @@ import java.net.URL;
  * <p>
  * <reference source Spring>
  */
-public interface Resource extends InputStreamSource{
+public interface Resource extends InputStreamSource {
 
     boolean exists();
 

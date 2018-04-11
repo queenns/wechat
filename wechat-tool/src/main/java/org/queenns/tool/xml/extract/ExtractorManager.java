@@ -1,5 +1,11 @@
 package org.queenns.tool.xml.extract;
 
+import org.queenns.tool.resource.ClassPathResource;
+import org.queenns.tool.resource.Resource;
+import org.queenns.tool.util.StringUtil;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,16 +18,26 @@ public class ExtractorManager {
 
     private Map<String, Class<? extends Extractor>> extractors = new HashMap<String, Class<? extends Extractor>>();
 
-    private ExtractorManager() {
+    private ExtractorManager() throws IOException {
 
         Package packages = clazz.getPackage();
 
-        System.out.println(packages);
+        String packageDirectory = StringUtil.replace(packages.getName(), ".", "/");
+
+        Resource resource = new ClassPathResource(packageDirectory);
+
+        File file = resource.getFile();
+
+        System.out.println(file);
+
+        System.out.println(resource.exists());
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
         new ExtractorManager();
+
     }
 
 }

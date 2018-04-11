@@ -1,5 +1,6 @@
 package org.queenns.tool.resource;
 
+import org.queenns.tool.util.AssertUtil;
 import org.queenns.tool.util.ObjectUtil;
 
 import java.io.IOException;
@@ -39,7 +40,7 @@ public class EncodedResource implements InputStreamSource {
 
     private EncodedResource(Resource resource, String encoding, Charset charset) {
 
-        if (ObjectUtil.isEmpty(resource)) throw new IllegalArgumentException("Resource must not be null");
+        AssertUtil.empty(ObjectUtil.isEmpty(resource), "Resource must not be null");
 
         this.resource = resource;
 

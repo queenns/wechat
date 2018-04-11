@@ -22,7 +22,7 @@ public abstract class PropertiesUtil {
 
     public static Properties loadProperties(String location, ClassLoader classLoader) throws IOException {
 
-        if (StringUtil.isEmpty(location)) throw new IllegalArgumentException("Properties location must not be null");
+        AssertUtil.empty(StringUtil.isEmpty(location), "Properties location must not be null");
 
         ClassLoader loaderClassLoader = !ObjectUtil.isEmpty(classLoader) ? classLoader : ClassUtil.getDefaultClassLoader();
 

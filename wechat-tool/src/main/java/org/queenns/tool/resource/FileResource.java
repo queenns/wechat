@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -21,6 +22,12 @@ public abstract class FileResource extends AbstractResource {
         URL url = getURL();
 
         return ResourceUtil.getFile(url);
+
+    }
+
+    protected File getFile(URI uri) throws IOException {
+
+        return ResourceUtil.getFile(uri);
 
     }
 

@@ -1,5 +1,6 @@
 package org.queenns.tool.resource;
 
+import org.queenns.tool.util.AssertUtil;
 import org.queenns.tool.util.ClassUtil;
 import org.queenns.tool.util.ObjectUtil;
 import org.queenns.tool.util.StringUtil;
@@ -26,7 +27,7 @@ public class ClassPathResource extends FileResource {
 
     public ClassPathResource(String classPath, ClassLoader classLoader) {
 
-        if (StringUtil.isEmpty(classPath)) throw new IllegalArgumentException(classPath);
+        AssertUtil.empty(StringUtil.isEmpty(classPath), classPath);
 
         this.classPath = classPath;
 
