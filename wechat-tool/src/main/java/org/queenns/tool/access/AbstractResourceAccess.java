@@ -36,7 +36,7 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
     /**
      * access method type
      */
-    private MethodType methodType;
+    private Method method;
 
     /**
      * data real dispose
@@ -53,45 +53,45 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
      */
     private Integer WAITING_DATA_TIMEOUT = 10000;
 
-    AbstractResourceAccess(MethodType methodType, Class<T> clazz) {
+    AbstractResourceAccess(Method method, Class<T> clazz) {
 
         this.clazz = clazz;
 
-        this.methodType = methodType;
+        this.method = method;
 
         this.disposeTransform = defaultDisposeTransform();
 
     }
 
-    AbstractResourceAccess(String url, MethodType methodType, Class<T> clazz) {
+    AbstractResourceAccess(String url, Method method, Class<T> clazz) {
 
         this.url = url;
 
         this.clazz = clazz;
 
-        this.methodType = methodType;
+        this.method = method;
 
         this.disposeTransform = defaultDisposeTransform();
 
     }
 
-    AbstractResourceAccess(MethodType methodType, DisposeTransform<T> disposeTransform, Class<T> clazz) {
+    AbstractResourceAccess(Method method, DisposeTransform<T> disposeTransform, Class<T> clazz) {
 
         this.clazz = clazz;
 
-        this.methodType = methodType;
+        this.method = method;
 
         this.disposeTransform = disposeTransform;
 
     }
 
-    AbstractResourceAccess(String url, MethodType methodType){
+    AbstractResourceAccess(String url, Method method) {
 
         initClazz();
 
         this.url = url;
 
-        this.methodType = methodType;
+        this.method = method;
 
         this.disposeTransform = defaultDisposeTransform();
 
@@ -101,16 +101,16 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
      * 只有当显式地声明具有具体类的泛型类型时，才会从派生类调用这个调用
      *
      * @param url              url
-     * @param methodType       methodType
+     * @param method           methodType
      * @param disposeTransform disposeTransform
      */
-    AbstractResourceAccess(String url, MethodType methodType, DisposeTransform<T> disposeTransform) {
+    AbstractResourceAccess(String url, Method method, DisposeTransform<T> disposeTransform) {
 
         initClazz();
 
         this.url = url;
 
-        this.methodType = methodType;
+        this.method = method;
 
         this.disposeTransform = disposeTransform;
 
@@ -120,18 +120,18 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
      * 只有当显式地声明具有具体类的泛型类型时，才会从派生类调用这个调用
      *
      * @param url                  url
-     * @param methodType           methodType
+     * @param method               method
      * @param disposeTransform     disposeTransform
      * @param CONNECTION_TIMEOUT   CONNECTION_TIMEOUT
      * @param WAITING_DATA_TIMEOUT WAITING_DATA_TIMEOUT
      */
-    AbstractResourceAccess(String url, MethodType methodType, DisposeTransform<T> disposeTransform, Integer CONNECTION_TIMEOUT, Integer WAITING_DATA_TIMEOUT) {
+    AbstractResourceAccess(String url, Method method, DisposeTransform<T> disposeTransform, Integer CONNECTION_TIMEOUT, Integer WAITING_DATA_TIMEOUT) {
 
         initClazz();
 
         this.url = url;
 
-        this.methodType = methodType;
+        this.method = method;
 
         this.disposeTransform = disposeTransform;
 
@@ -197,7 +197,7 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
 
     private HttpMethod createMethod() {
 
-        switch (methodType) {
+        switch (method) {
 
             case GET:
                 return new GetMethod(url);
@@ -207,7 +207,7 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
 
             default:
 
-                throw new AccessException("http method type not found : " + methodType);
+                throw new AccessException("http method type not found : " + method);
 
         }
 
@@ -229,12 +229,12 @@ public abstract class AbstractResourceAccess<T> implements Access<T> {
         this.url = url;
     }
 
-    public MethodType getMethodType() {
-        return methodType;
+    public Method getMethod() {
+        return method;
     }
 
-    public void setMethodType(MethodType methodType) {
-        this.methodType = methodType;
+    public void setMethod(Method method) {
+        this.method = method;
     }
 
     public DisposeTransform<T> getDisposeTransform() {

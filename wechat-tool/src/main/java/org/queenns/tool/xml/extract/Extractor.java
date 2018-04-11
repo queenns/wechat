@@ -9,6 +9,14 @@ import org.w3c.dom.Node;
  */
 public abstract class Extractor<T> implements Extract<T> {
 
+    /**
+     * 检查节点类型
+     *
+     * @param elementName 节点名称
+     * @param sourceType  　节点原始类型
+     * @param confirmType 　节点确认类型
+     * @throws ExtractXmlException 确认节点类型不匹配时抛出
+     */
     protected void validateNodeType(String elementName, int sourceType, int confirmType) throws ExtractXmlException {
 
         if (sourceType == confirmType) return;
@@ -35,6 +43,13 @@ public abstract class Extractor<T> implements Extract<T> {
 
     }
 
+    /**
+     * 检查节点是否为空
+     *
+     * @param elementName 节点名称
+     * @param value       节点值
+     * @throws ExtractXmlException 当值为空时抛出
+     */
     protected void validateValueNull(String elementName, String value) throws ExtractXmlException {
 
         if (StringUtil.isEmpty(value))

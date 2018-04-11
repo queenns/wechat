@@ -1,6 +1,6 @@
 package org.queenns.tool.model;
 
-import org.queenns.tool.access.MethodType;
+import org.queenns.tool.access.Method;
 
 /**
  * Created by lxj on 18-1-12
@@ -9,7 +9,7 @@ public class Information {
 
     private String id;
 
-    private MethodType methodType;
+    private Method method;
 
     private String url;
 
@@ -21,12 +21,12 @@ public class Information {
         this.id = id;
     }
 
-    public MethodType getMethodType() {
-        return methodType;
+    public Method getMethod() {
+        return method;
     }
 
-    public void setMethodType(MethodType methodType) {
-        this.methodType = methodType;
+    public void setMethod(Method method) {
+        this.method = method;
     }
 
     public String getUrl() {
@@ -41,7 +41,7 @@ public class Information {
     public String toString() {
         return "Information{" +
                 "id=" + id +
-                ", methodType=" + methodType +
+                ", method=" + method +
                 ", url=" + url +
                 '}';
     }

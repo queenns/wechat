@@ -9,25 +9,25 @@ public class GetResourceAccess<T> extends AbstractResourceAccess<T> {
 
     public GetResourceAccess(String url) {
 
-        super(url, MethodType.GET);
+        super(url, Method.GET);
 
     }
 
     public GetResourceAccess(Class<T> clazz) {
 
-        super(MethodType.GET, clazz);
+        super(Method.GET, clazz);
 
     }
 
     public GetResourceAccess(String url, Class<T> clazz) {
 
-        super(url, MethodType.GET, clazz);
+        super(url, Method.GET, clazz);
 
     }
 
     public GetResourceAccess(DisposeTransform<T> disposeTransform, Class<T> clazz) {
 
-        super(MethodType.GET, disposeTransform, clazz);
+        super(Method.GET, disposeTransform, clazz);
 
     }
 

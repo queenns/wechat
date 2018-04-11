@@ -14,7 +14,7 @@ public class InfoWrapperParserDelegate extends AbstractParserDelegate {
 
     private static final String ELEMENT_INFORMATION = "information";
 
-    private static final String ELEMENT_INFORMATION_METHODTYPE = "methodType";
+    private static final String ELEMENT_INFORMATION_METHOD = "method";
 
     private static final String ELEMENT_INFORMATION_URL = "url";
 
@@ -39,7 +39,7 @@ public class InfoWrapperParserDelegate extends AbstractParserDelegate {
             case ELEMENT_INFORMATION:
                 break;
 
-            case ELEMENT_INFORMATION_METHODTYPE:
+            case ELEMENT_INFORMATION_METHOD:
                 break;
 
             case ELEMENT_INFORMATION_URL:
